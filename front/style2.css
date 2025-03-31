@@ -129,3 +129,42 @@
     top: 90px;
     z-index: 3;
 }
+
+.section4{
+    margin-top: 50px;
+    width: 100%;
+    height: 200px;
+    background-color: #ADD8E6;
+    opacity: 80%;
+    text-align: center;
+}
+
+#text4{
+    font-size: 50px;
+    margin:0;
+}
+
+.cta-button {
+    background-color: #00BFFF;
+    color: #000;
+    border: 2px solid white;
+    font-size: 20px;
+    font-weight:300;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 40px;
+    width: 500px;
+    height: 50px;
+    transition: background-color 0.3s; /* 添加背景颜色过渡效果 */
+  }
+
+  .cta-button:hover {
+    background-color: #0056b3; /* 设置鼠标悬停时的背景颜色 */
+}
+
+.img1{
+    width: 30px;
+    height: 30px;
+    margin-left: 49%;
+    margin-top: 5px;
+}

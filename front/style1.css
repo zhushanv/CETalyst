@@ -34,6 +34,11 @@ body{
     font-size: 16px;
     cursor: pointer;
     border-radius: 8px;
+    transition: background-color 0.3s; /* 添加背景颜色过渡效果 */
+}
+
+.button-right:hover {
+    background-color: #FFD700;
 }
 
 .hr-line1{
