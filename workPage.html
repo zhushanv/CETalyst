@@ -26,17 +26,17 @@
                         <button class="button">The Economist</button>
                         <button class="button">China story</button>
                     </div>
-                    <button class="start"><b>ANALYZE</b></button>
+                    <button class="start" onclick="analyze()"><b>ANALYZE</b></button>
             </div>
             <div class="section2">
                 <div class="nav-button"> 
-                    <button class="button2">四级词汇</button>
-                    <button class="button2">六级词汇</button>
-                    <button class="button2">词句分析</button>
+                    <button class="button2" onclick="showWord(1)">四级词汇</button>
+                    <button class="button2" onclick="showWord(2)">六级词汇</button>
+                    <button class="button2" onclick="showWord(3)">词句分析</button>
                 </div>
 
                 <div class="display" id="result">
-                    
+          
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
         <div class="section3">
             <div class="card">
                 <div class="tag">四级词汇</div>
-                <div class="list">
+                <!-- <div class="list">
                     <dl>
                         <div>
                           <dt>A</dt>
@@ -79,7 +79,7 @@
                           <dd>Two Gallants</dd>
                         </div>
                       </dl>
-                </div>
+                </div> -->
             </div>
             <div class="card">
                 <div class="tag">六级词汇</div>
@@ -136,5 +136,6 @@
         </div>
 
         <button class="button3">Export as PDF</button>
+        <script src="script.js"></script>
     </body>
 </html>
