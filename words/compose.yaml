@@ -1,0 +1,21 @@
+services:
+  app:
+    image: cet:v1
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    environment:
+      - PORT=8002
+    ports:
+      - "8002:8002"
+    command: uvicorn main:app --host 0.0.0.0 --port 8002 --reload
+    volumes:
+      - ./src:/code:rw
+    develop:
+      watch:
+        - action: rebuild
+          path: Dockerfile
+        - action: rebuild
+          path: requirements.txt
+        - action: rebuild
+          path: compose.yaml
