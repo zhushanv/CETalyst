@@ -7,7 +7,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <link rel="stylesheet" href="style3.css">
          <!--引入字体-->
-        <link ref="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap">
+        <!--引入UI组件-->>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        <!--引入html2pdf.js库-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     </head>
     <body>
         <div class="header-container">
@@ -22,101 +26,44 @@
                     </textarea>
                     <div class="exap">
                         <p id="text1">Example text:</p>
-                        <button class="button">Sonnet 1</button>
-                        <button class="button">The Economist</button>
-                        <button class="button">China story</button>
+                        <button class="button" onclick="showPassage(1)">Passage 1</button>
+                        <button class="button" onclick="showPassage(2)">Passage 2</button>
+                        <button class="button" onclick="showPassage(3)">Passage 3</button>
                     </div>
                     <button class="start" onclick="analyze()"><b>ANALYZE</b></button>
             </div>
             <div class="section2">
                 <div class="nav-button"> 
-                    <button class="button2" onclick="showWord(1)">四级词汇</button>
-                    <button class="button2" onclick="showWord(2)">六级词汇</button>
+                   <!--问题一：每点一次就要分析一次-->>
+                    <button class="button2" onclick="showWord(1)">提取四级词汇</button>
+                    <button class="button2" onclick="showWord(2)">提取六级词汇</button>
                     <button class="button2" onclick="showWord(3)">词句分析</button>
                 </div>
 
-                <div class="display" id="result">
-          
+                <div class="display" id="result" >
                 </div>
             </div>
         </div>
         <br>
         <div class="divider">
-            <span>RESULT2</span>
+            <span>RESULT</span>
         </div>
 
         <div class="section3">
-            <div class="card">
+            <div class="card" id="card1">
                 <div class="tag">四级词汇</div>
-                <!-- <div class="list">
-                    <dl>
-                        <div>
-                          <dt>A</dt>
-                          <dd>Andrew W.K.</dd>
-                          <dd>Apparat</dd>
-                          <dd>Arcade Fire</dd>
-                          <dd>At The Drive-In</dd>
-                          <dd>Aziz Ansari</dd>
-                        </div>
-                        <div>
-                          <dt>C</dt>
-                          <dd>Chromeo</dd>
-                          <dd>Common</dd>
-                          <dd>Converge</dd>
-                          <dd>Crystal Castles</dd>
-                          <dd>Cursive</dd>
-                        </div>
-                        <div>
-                          <dt>E</dt>
-                          <dd>Explosions In The Sky</dd>
-                        </div>
-                        <div>
-                          <dt>T</dt>
-                          <dd>Ted Leo &amp; The Pharmacists</dd>
-                          <dd>T-Pain</dd>
-                          <dd>Thrice</dd>
-                          <dd>TV On The Radio</dd>
-                          <dd>Two Gallants</dd>
-                        </div>
-                      </dl>
-                </div> -->
-            </div>
-            <div class="card">
-                <div class="tag">六级词汇</div>
                 <div class="list">
-                    <dl>
-                        <div>
-                          <dt>A</dt>
-                          <dd>Andrew W.K.</dd>
-                          <dd>Apparat</dd>
-                          <dd>Arcade Fire</dd>
-                          <dd>At The Drive-In</dd>
-                          <dd>Aziz Ansari</dd>
-                        </div>
-                        <div>
-                          <dt>C</dt>
-                          <dd>Chromeo</dd>
-                          <dd>Common</dd>
-                          <dd>Converge</dd>
-                          <dd>Crystal Castles</dd>
-                          <dd>Cursive</dd>
-                        </div>
-                        <div>
-                          <dt>E</dt>
-                          <dd>Explosions In The Sky</dd>
-                        </div>
-                        <div>
-                          <dt>T</dt>
-                          <dd>Ted Leo &amp; The Pharmacists</dd>
-                          <dd>T-Pain</dd>
-                          <dd>Thrice</dd>
-                          <dd>TV On The Radio</dd>
-                          <dd>Two Gallants</dd>
-                        </div>
-                      </dl>
+                  
                 </div>
             </div>
-            <div class="card">
+            <div class="card" id="card2">
+                <div class="tag">六级词汇</div>
+                <div class="list">
+
+                </div>
+            </div>
+
+            <div class="card" id="card3">
                 <div class="tag">妙语妙句</div>
                 <div class="list">
                     <p>
@@ -135,7 +82,7 @@
             </div>
         </div>
 
-        <button class="button3">Export as PDF</button>
+        <button class="button3" id="export-pdf">Export as PDF</button>
         <script src="script.js"></script>
     </body>
 </html>
