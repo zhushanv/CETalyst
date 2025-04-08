@@ -1,6 +1,9 @@
-fastapi
 pydantic
+fastapi
 nltk
 typing
 uvicorn
 requests
+openai
+re
+json

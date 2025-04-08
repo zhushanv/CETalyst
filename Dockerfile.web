@@ -46,7 +46,7 @@ COPY requirements.txt /tmp/requirements.txt
 COPY ./src /code
 
 # Install the Python project requirements
-RUN pip install -r /tmp/requirements.txt
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /tmp/requirements.txt
 
 
 # make the bash script executable

@@ -3,12 +3,16 @@ const result = document.getElementById('result');
 const card1 = document.getElementById('card1');
 const card2 =  document.getElementById('card2');
 const card3 =  document.getElementById('card3');
+const spinner = document.getElementById('loading-spinner');
 
-let response;  
 let responseData;
+let analyzedData = " ";
 let base_url = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+let host_url = "http://127.0.0.1:8002"
 let input;
+let html_display;
 //全局数组可能会存在问题
+//存储查询结果
 let CET4 = [];
 let CET6 = [];
 
@@ -16,7 +20,8 @@ async function analyze() {
     input = pasteText.value;
     console.log("pasteText",input);
     try {
-        response = await fetch("http://127.0.0.1:8002/classify", {
+        result.innerHTML += loading();
+        let response = await fetch("http://127.0.0.1:8002/classify", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -26,7 +31,8 @@ async function analyze() {
             })
         });
         responseData = await response.json();
-        console.log( "responseData:",responseData);
+        result.innerHTML = "<h2>🥳分析完成🥳</h2>";
+        // console.log( "responseData:",responseData);
     } catch (error) {
         console.error("请求失败:", error);
     }
@@ -115,7 +121,7 @@ async function showWord(id) {
 
                     html += `</div>`;
                 });
-
+                // console.log("CET4",CET4);
                 result.innerHTML += html;
             }
         }
@@ -196,7 +202,30 @@ async function showWord(id) {
             }        
     } else {
         result.innerHTML = " ";
+
+        result.innerHTML += loading();
+        
         // 接入大模型api进行词句分析
+        data = await AIanalyze()
+
+        result.innerHTML = " ";
+
+        console.log("data:", data);
+
+        let html = '<div class="analysis-block">';
+        html += `<p id="attention">❗此部分为AI大模型生成</p>`
+        html += '<h2>📌 段落结构分析</h2><ul>';
+        data["structure"].forEach(item => html += `<li>${item}</li>`);
+        html += '</ul><h2>🎯 优美表达提取</h2><ul>';
+        data["expressions"].forEach(e =>
+        html += `<li><span class="highlight">${e.phrase}</span> – ${e.meaning}（${e.comment}）</li>`);
+        html += '</ul><h2>💡 语法亮点</h2><ul>';
+        data["grammar"].forEach(g => html += `<li>${g}</li>`);
+        html += '</ul><h2>✍️ 写作技巧学习</h2><ul>';
+        data["tips"].forEach(t => html += `<li>${t}</li>`);
+        html += '</ul></div>';
+        html_display = html;
+        result.innerHTML = html;
     }
     displayResult(id);
 }
@@ -244,7 +273,7 @@ The exercise involved in working in a garden is helpful in keeping people in goo
 //接入词典api
 function displayResult(id){
     if(id === 1){
-        console.log(CET4);
+        // console.log(CET4);
         card1.querySelector('.list').innerHTML = ``;
         let html =`
                     <dl>`;       
@@ -253,9 +282,9 @@ function displayResult(id){
                   <div>
                     <dt>${data[0].word}</dt>
             `
-            console.log("data:",  data);
+            // console.log("data:",  data);
             for(wordData of data){
-                console.log("wordData",wordData);
+                // console.log("wordData",wordData);
                     for(meanings of wordData.meanings){
                         partOfSpeech = meanings.partOfSpeech;
                         html += `<dd>${partOfSpeech}:${meanings.definitions[0].definition} <dd>`
@@ -268,7 +297,7 @@ function displayResult(id){
         card1.querySelector('.list').innerHTML += html;
     }
     else if(id === 2){
-        console.log(CET6);
+        // console.log(CET6);
         card2.querySelector('.list').innerHTML = ``;
         let html =`
                     <dl>`;       
@@ -291,7 +320,7 @@ function displayResult(id){
     }
     else{
         card3.querySelector('.list').innerHTML = ``;
-
+        card3.querySelector('.list').innerHTML = html_display;
     }
     
     
@@ -321,3 +350,35 @@ document.getElementById('export-pdf').addEventListener('click', () => {
         element.style.overflowX = originalOverflowX;
     });
 });
+
+async function AIanalyze() {
+    input = pasteText.value; 
+    
+    try {
+        const response = await fetch("http://127.0.0.1:8002/analyze", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                text: input
+            })
+        });
+
+        const data = await response.json();
+        console.log("analyzedData:", data);
+        return data;
+
+    } catch (error) {
+        console.error("分析时出错：", error);
+    }
+}
+
+function loading(){
+    return `
+         <div id="loading-spinner">
+                        <div class="spinner" id="spinner"></div>
+                        <p>分析中, 请耐心等待...<br>等待过程请不要切换其他按钮</p>
+                </div>
+    `
+}

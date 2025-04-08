@@ -1,25 +1,29 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from pydantic import BaseModel
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
-from nltk import pos_tag
+from nltk.data import path as nltk_path
+from nltk import pos_tag, download
 from typing import List, Dict
 from fastapi.middleware.cors import CORSMiddleware
+from api.cohere import build_messages, client
+from api.extract_json import extract_json
 #from spacy
 import uvicorn
 import nltk
+import json
 
-# 加载 spaCy 英语模型
-#nlp = spacy.load("en_core_web_sm")
-
-# 下载 punkt 资源
-nltk.download('punkt')
-nltk.download('punkt_tab')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
-nltk.download('averaged_perceptron_tagger_eng') 
-
+nltk.download(
+    [
+        "punkt", 
+        "wordnet", 
+        "omw-1.4", 
+        "averaged_perceptron_tagger_eng",
+        "punkt_tab"  # 注意：这是 punkt 的补充数据（可选）
+    ]
+)
+                                                        
 # 加载词表
 def load_word_list(path: str) -> set:
     with open(path, 'r', encoding='utf-8') as f:
@@ -35,7 +39,7 @@ app = FastAPI()
 lemmatizer = WordNetLemmatizer()
 
 
-# 添加 CORS 中间件
+# 添加 CORS 中间件，便于跨域访问
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # 允许所有来源的请求，生产环境中应指定具体的源
@@ -64,6 +68,7 @@ def get_wordnet_pos(treebank_tag):
     else:
         return wordnet.NOUN
 
+#分词
 @app.post("/classify")
 # 在输入之前需要转换为单词原型 
 def classify_words(input: TextInput) -> Dict[str, List[str]]:
@@ -88,12 +93,30 @@ def classify_words(input: TextInput) -> Dict[str, List[str]]:
         else:
             other.add(lemma)
 
+    # print("cet4:", cet4)
+    # print("cet6:", cet6)
+
     return {
         "CET-4": sorted(set(cet4)),
         "CET-6": sorted(set(cet6)),
         "其他": sorted(set(other))
     }
 
+@app.post("/analyze")
+def analyzeText(input: TextInput):
+    print(input.text)
+    messages = build_messages(input.text)
+    print(messages)
+    response = client.chat.completions.create(
+        # response_format={"type": "json_object"},
+        model="deepseek-chat",
+        messages=messages,
+        max_tokens=8190
+    )
+    ans = extract_json(response.choices[0].message.content)
+    print("ansJSON", json.loads(ans))
+    return json.loads(ans)
+
 # 本地启动
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8002, reload=True)

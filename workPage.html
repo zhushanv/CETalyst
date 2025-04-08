@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="style3.css">
          <!--引入字体-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap">
-        <!--引入UI组件-->>
+        <!--引入UI组件-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
         <!--引入html2pdf.js库-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
@@ -34,13 +34,14 @@
             </div>
             <div class="section2">
                 <div class="nav-button"> 
-                   <!--问题一：每点一次就要分析一次-->>
+                   <!--问题一：每点一次就要分析一次-->
                     <button class="button2" onclick="showWord(1)">提取四级词汇</button>
                     <button class="button2" onclick="showWord(2)">提取六级词汇</button>
-                    <button class="button2" onclick="showWord(3)">词句分析</button>
+                    <button class="button2" onclick="showWord(3)">AI词句分析</button>
                 </div>
-
+                <!--问题在-->
                 <div class="display" id="result" >
+                   
                 </div>
             </div>
         </div>
@@ -50,6 +51,7 @@
         </div>
 
         <div class="section3">
+            <p id="signal">💭只有在提取单词功能成功触发，并将所有单词加载完毕时，单词汇总才会显示</p>
             <div class="card" id="card1">
                 <div class="tag">四级词汇</div>
                 <div class="list">
@@ -65,20 +67,7 @@
 
             <div class="card" id="card3">
                 <div class="tag">妙语妙句</div>
-                <div class="list">
-                    <p>
-                        The following example demonstrates an element's behavior when all inset boundaries 
-                        <br>are set. Here, we have two light bulb emojis in a paragraph. <br>
-                        The light bulbs use sticky positioning, and the inset boundaries are specified 
-                        <br>as 50px from the top, 100px from the right, 50px from the bottom, and 50px from the left. 
-                        <br>A gray background on the parent div element marks the inset area.
-                    </p>
-                    <p>
-                        When you put both bulbs in their proper place, 
-                        <br>you'll notice that they are relatively positioned inside the inset area. 
-                        <br>When you move them out of the inset area, they are fixed (sticky) to the inset boundary in that direction.
-                    </p>
-                </div>
+                <div class="list"></div>
             </div>
         </div>
 

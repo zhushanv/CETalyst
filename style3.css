@@ -6,6 +6,10 @@ body{
     display: flex;
     align-items: center;
     padding: 10px;
+    margin:0;
+    background-color: #00BFFF;
+    margin-bottom: 3px;
+
 }
 
 .header-icon{
@@ -106,8 +110,9 @@ a{
 
 .nav-button{
     display: flex;
-    
     justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .button2{
@@ -117,7 +122,7 @@ a{
     cursor: pointer;
     width: 23%;
     height: 15%;
-    margin-left: 2%;
+    margin:0;
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
@@ -129,27 +134,51 @@ a{
 .display {
     border-width: 2px;
     border-style: solid;
-    margin-left: 15px;
+    margin-left: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     width: 95%;
-    height: 95%;
+    height: 93%;
     padding: 10px;
     overflow-y: auto; /* 添加垂直滚动条 */
     overflow-x: auto; /* 添加水平滚动条 */
 }
 
 .display::before {
-    content: "先分析文本之后才能展示结果, 点击ANALYZE按钮";
+    content: "💭先分析文本按下ANALYZE按钮之后才能提取词汇-----文本过长分析所用的时间也会变长";
     color: #717d85; /* 占位文本颜色 */
     display: block; /* 确保占位文本占据一行 */
 }
+
+#loading-spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #09f;
+    animation: spin 1s linear infinite;
+  }
+  
+  /*关键帧动画*/
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 .divider {
     display: flex;
     align-items: center;
     width: 100%;
-    margin-top: 5px;
+    margin-top: 20px;
 }
 
 .divider::before,
@@ -180,6 +209,12 @@ a{
     align-items: center;
     flex-direction: column;
     gap: 10px;
+}
+
+#signal {
+        color: #717d85; /* 占位文本颜色 */
+        display: block; /* 确保占位文本占据一行 */
+        margin-left: 40px;
 }
 
 }
@@ -256,7 +291,7 @@ dl > div {
     font-weight: 300;
     border-radius: 8px;
     cursor: pointer;
-    margin-top: 3%;
+    margin-top: 10px;
 }
 
 
@@ -295,3 +330,30 @@ dl > div {
     align-items: center;
     width: 100%;
 }
+
+
+.analysis-block {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: "Arial", sans-serif;
+  }
+  
+  .analysis-block h2 {
+    margin-top: 20px;
+    color: #2c3e50;
+  }
+  
+  .analysis-block ul, .analysis-block ol {
+    padding-left: 20px;
+  }
+  
+  .analysis-block li {
+    margin-bottom: 8px;
+  }
+  
+  .highlight {
+    color: #e67e22;
+    font-weight: bold;
+  }
