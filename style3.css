@@ -59,6 +59,10 @@ a{
     text-align: left;
 }
 
+.paste::placeholder {
+    color: #aaa; /* 灰色占位符 */
+}
+
 .exap {
     display: flex; /* 让子元素都在一行排列 */
     align-items: center; /* 垂直居中对齐 */

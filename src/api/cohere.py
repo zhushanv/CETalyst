@@ -1,6 +1,7 @@
 from openai import OpenAI
+from . import config
 
-client = OpenAI(api_key="sk-3fc5030e1f144b30990ef0c40940c66e", base_url="https://api.deepseek.com")
+client = OpenAI(api_key=config.COHERE_API_KEY , base_url="https://api.deepseek.com")
 
 def build_messages(text):
     return [

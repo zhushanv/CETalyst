@@ -267,7 +267,7 @@ The exercise involved in working in a garden is helpful in keeping people in goo
         outside of the harbour. I can still hear the lively gossip between my uncle and the other fishermen, above the rippling and splashing of the waves against the hulls of the boats. I remember 
         the boats heaving periodically, on the huge gently rolling waves.`
     }
-    pasteText.innerHTML= input;
+    pasteText.value= input;
 }
 
 //接入词典api

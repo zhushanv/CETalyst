@@ -1,0 +1,2 @@
+# config.py
+COHERE_API_KEY = "sk-3fc5030e1f144b30990ef0c40940c66e"

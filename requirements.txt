@@ -3,7 +3,6 @@ fastapi
 nltk
 typing
 uvicorn
+gunicorn
 requests
 openai
-re
-json
