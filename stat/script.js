@@ -21,7 +21,7 @@ async function analyze() {
     console.log("pasteText",input);
     try {
         result.innerHTML += loading();
-        let response = await fetch("http://127.0.0.1:8002/classify", {
+        let response = await fetch("/api/classify", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -355,7 +355,7 @@ async function AIanalyze() {
     input = pasteText.value; 
     
     try {
-        const response = await fetch("http://127.0.0.1:8002/analyze", {
+        const response = await fetch("/api/analyze", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
